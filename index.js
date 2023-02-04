@@ -34,6 +34,30 @@ connectToMongoDB().then(() => {
     console.log("Connected to MongoDB");
   });
   
+  // create a model
+
+
+  const userSchema = new mongoose.Schema({
+    username: String,
+    password: String
+  });
+  
+const User = mongoose.model('User', userSchema);
+
+const newUser = new User({
+    username: "john",
+    password: "password"
+  });
+  
+  newUser.save((error) => {
+    if (error) {
+      console.error(error);
+    } else {
+      console.log("User saved successfully");
+    }
+  });
+  
+
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
