@@ -1,8 +1,9 @@
 import './App.css';
 import React, { useState } from "react";
 import axios from 'axios';
+import Welcome from './Welcome'
 
-const App = () => {
+const App = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -31,7 +32,7 @@ const App = () => {
   return (
     
     <div className="App">
-      <h1>Welcome to Game!!!</h1>
+      <Welcome {...props} username={username} />
     <form onSubmit={handleSubmit}>
       <label htmlFor="username">Username:</label>
       <input
