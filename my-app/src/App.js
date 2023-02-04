@@ -1,24 +1,23 @@
 import './App.css';
 import React, { useState } from "react";
+import axios from 'axios';
 
 const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   const response = await fetch("/api/users", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({ username, password }),
-  //   });
-  //   const result = await response.json();
-  //   if (result.error) {
-  //     console.error(result.error);
-  //   } else {
-  //     console.log("User added successfully");
-  //   }
-  // };
+  const handleSubmit =  (event) => {
+
+    event.preventDefault();
+     axios.post('http://localhost:3000', {username, password})
+    .then((response)=> {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+      
 
   const handleUserNameChange = (event) => {
     setUsername(event.target.value)
@@ -30,10 +29,10 @@ const App = () => {
   }
 
   return (
-    //onSubmit={handleSubmit}
+    
     <div className="App">
       <h1>Welcome to Game!!!</h1>
-    <form >
+    <form onSubmit={handleSubmit}>
       <label htmlFor="username">Username:</label>
       <input
         type="text"
