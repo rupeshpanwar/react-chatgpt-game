@@ -2,10 +2,12 @@ import './App.css';
 import React, { useState } from "react";
 import axios from 'axios';
 import Welcome from './Welcome'
+import {useNavigate, Route, Routes} from 'react-router-dom'
 
 const App = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit =  (event) => {
 
@@ -13,6 +15,7 @@ const App = (props) => {
      axios.post('http://localhost:3000', {username, password})
     .then((response)=> {
       console.log(response);
+      navigate('/welcome');
     })
     .catch((error) => {
       console.log(error);
@@ -32,8 +35,12 @@ const App = (props) => {
   return (
     
     <div className="App">
-      <Welcome {...props} username={username} />
-    <form onSubmit={handleSubmit}>
+      <Routes>
+        <Route path="/welcome" element={<Welcome {...props} username={username} />} />
+        <Route path="/" element={<h1>Welcome to the Game</h1>} />
+      </Routes>
+      
+    <form onSubmit={handleSubmit} action="/welcome">
       <label htmlFor="username">Username:</label>
       <input
         type="text"
